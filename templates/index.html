@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yangiliklar Sayti</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    header {
+      background-color: #0055a5;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    /* Kategoriya menyusi */
+    .category-menu {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .category-menu a {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 8px 12px;
+      background-color: #eee;
+      color: #333;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .category-menu a:hover {
+      background-color: #0055a5;
+      color: white;
+    }
+
+    /* Qidiruv paneli */
+    .search-bar {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .search-bar input[type="text"] {
+      padding: 10px;
+      width: 70%;
+      max-width: 400px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .news {
+      background-color: white;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .news:hover {
+      transform: scale(1.01);
+    }
+
+    .news img {
+      width: 100%;
+      height: auto;
+    }
+
+    .news h2 {
+      margin: 10px;
+      color: #0055a5;
+    }
+
+    .news p {
+      margin: 10px;
+      line-height: 1.6;
+    }
+
+    .read-more {
+      display: inline-block;
+      margin: 10px;
+      padding: 8px 14px;
+      background-color: #0055a5;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .read-more:hover {
+      background-color: #003f7f;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+
+    /* Tungi rejim tugmasi */
+    .dark-mode-toggle {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+    }
+
+    .dark-mode input[type="checkbox"] {
+      display: none;
+    }
+
+    .dark-mode label {
+      cursor: pointer;
+      background: #0055a5;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+
+    body.dark {
+      background-color: #1e1e1e;
+      color: #e0e0e0;
+    }
+
+    body.dark .news {
+      background-color: #2c2c2c;
+    }
+
+    body.dark .read-more {
+      background-color: #1a73e8;
+    }
+
+    body.dark .category-menu a {
+      background-color: #444;
+      color: white;
+    }
+
+    body.dark .category-menu a:hover {
+      background-color: #1a73e8;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Bugungi Yangiliklar</h1>
+  </header>
+
+  <div class="container">
+
+    <!-- Kategoriyalar -->
+    <div class="category-menu">
+      {% for category in categories %}  
+        <a href="#">{{ category.name }}</a>
+      {% endfor %}
+    </div>
+
+    {% if latest_news %}
+      {% for item in latest_news %}
+        <div class="news">
+          <img src="{{ item.image.url }}" alt="{{ item.title }} rasmi">
+          <h2>{{ item.title }}</h2>
+          <p>{{ item.content | truncatewords:30 }}</p>
+          <a href="{% url 'news_detail' item.id %}" >
+            Batafsil
+          </a>
+        </div>
+      {% endfor %}
+    {% endif %}
+
+  </div>
+
+  <footer>
+    &copy; 2025 Yangiliklar Sayti | Muallif: Ibroxim Toxirov
+  </footer>
+
+</body>
+
+</html>
